@@ -1,0 +1,64 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import CallButton from '../components/CallButton.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Faq from '../components/Faq.astro';
+import RelatedServices from '../components/RelatedServices.astro';
+import { business, servicePath } from '../data/business';
+import { getServiceSchema, getBreadcrumbSchema, getFaqSchema } from '../lib/schema';
+
+interface Props {
+  slug: 'tree-removal' | 'trimming-pruning' | 'stump-grinding';
+  name: string;
+  title: string;
+  description: string;
+  heroLede: string;
+  faqs: Array<{ q: string; a: string }>;
+}
+
+const { slug, name, title, description, heroLede, faqs } = Astro.props;
+
+const trail = [
+  { name: 'Home', path: '/' },
+  { name: 'Tree Service', path: '/tree-service/' },
+  { name, path: servicePath(slug) },
+];
+
+const schemas = [
+  getServiceSchema({ slug, name, description }),
+  getBreadcrumbSchema(trail),
+  getFaqSchema(faqs),
+];
+---
+
+<BaseLayout title={title} description={description} canonicalPath={servicePath(slug)} schemas={schemas}>
+  <section class="page-hero">
+    <div class="wrap page-hero-inner">
+      <h1>{name} in Ogden &amp; Weber County</h1>
+      <p class="lede">{heroLede}</p>
+      <div class="cta-row">
+        <CallButton variant="primary" size="lg" label={`Call ${business.phoneDisplay}`} />
+        <CallButton variant="ghost" size="lg" label="Free Estimate" icon={false} />
+      </div>
+    </div>
+  </section>
+
+  <Breadcrumbs trail={trail} />
+
+  <article class="prose">
+    <div class="wrap">
+      <slot />
+    </div>
+  </article>
+
+  <Faq faqs={faqs} />
+
+  <RelatedServices exclude={slug} />
+
+  <section class="final-cta">
+    <div class="wrap final-cta-inner">
+      <h2>Ready for a free estimate?</h2>
+      <CallButton variant="primary" size="xl" />
+    </div>
+  </section>
+</BaseLayout>

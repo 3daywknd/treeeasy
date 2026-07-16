@@ -1,0 +1,70 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CallButton from '../../components/CallButton.astro';
+import { getBreadcrumbSchema, getBlogPostingSchema } from '../../lib/schema';
+
+export const getStaticPaths = (async () => {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}) satisfies GetStaticPaths;
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const path = `/blog/${post.id}/`;
+const trail = [
+  { name: 'Home', path: '/' },
+  { name: 'Blog', path: '/blog/' },
+  { name: post.data.title, path },
+];
+
+const schemas = [
+  getBlogPostingSchema({
+    title: post.data.title,
+    description: post.data.description,
+    path,
+    datePublished: post.data.pubDate.toISOString(),
+    dateModified: post.data.updatedDate?.toISOString(),
+  }),
+  getBreadcrumbSchema(trail),
+];
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<BaseLayout
+  title={`${post.data.title} | Tree Easy`}
+  description={post.data.description}
+  canonicalPath={path}
+  ogType="article"
+  schemas={schemas}
+>
+  <section class="page-hero">
+    <div class="wrap page-hero-inner">
+      <h1>{post.data.title}</h1>
+      <p class="post-meta post-meta--hero">{fmt(post.data.pubDate)}</p>
+    </div>
+  </section>
+
+  <Breadcrumbs trail={trail} />
+
+  <article class="prose blog-post">
+    <div class="wrap">
+      <Content />
+    </div>
+  </article>
+
+  <section class="final-cta">
+    <div class="wrap final-cta-inner">
+      <h2>Questions about a tree on your property?</h2>
+      <CallButton variant="primary" size="xl" />
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,29 @@
+---
+/**
+ * Visible breadcrumb trail. The matching BreadcrumbList schema is built by the
+ * page from the same trail (via getBreadcrumbSchema).
+ */
+interface Props {
+  trail: Array<{ name: string; path: string }>;
+}
+
+const { trail } = Astro.props;
+---
+
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  <div class="wrap">
+    <ol>
+      {
+        trail.map((crumb, i) => (
+          <li>
+            {i < trail.length - 1 ? (
+              <a href={crumb.path}>{crumb.name}</a>
+            ) : (
+              <span aria-current="page">{crumb.name}</span>
+            )}
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</nav>

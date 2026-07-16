@@ -1,0 +1,30 @@
+---
+/** Cross-links to the other services (everything except `exclude`). */
+import { services, servicePath } from '../data/business';
+
+interface Props {
+  exclude?: string;
+  heading?: string;
+}
+
+const { exclude, heading = 'Other services' } = Astro.props;
+const others = services.filter((s) => s.slug !== exclude);
+---
+
+<section class="related">
+  <div class="wrap">
+    <h2>{heading}</h2>
+    <ul class="related-list">
+      {
+        others.map((s) => (
+          <li>
+            <a href={servicePath(s.slug)}>
+              <strong>{s.name}</strong>
+              <span>{s.summary}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
