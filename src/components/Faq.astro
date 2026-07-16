@@ -1,0 +1,31 @@
+---
+/**
+ * Renders the VISIBLE FAQ. The matching FAQPage schema is built by the page
+ * from the SAME `faqs` array (via getFaqSchema) so structured data always
+ * matches on-page content — a Google requirement for FAQ rich results.
+ */
+interface Props {
+  faqs: Array<{ q: string; a: string }>;
+  heading?: string;
+}
+
+const { faqs, heading = 'Frequently asked questions' } = Astro.props;
+---
+
+<section class="faq" aria-labelledby="faq-heading">
+  <div class="wrap">
+    <h2 id="faq-heading">{heading}</h2>
+    <div class="faq-list">
+      {
+        faqs.map((f) => (
+          <details class="faq-item">
+            <summary>{f.q}</summary>
+            <div class="faq-answer">
+              <p>{f.a}</p>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,85 @@
+---
+/** Homepage service card — now a link to the dedicated service page. */
+import { servicePath } from '../data/business';
+
+interface Props {
+  slug: 'tree-removal' | 'trimming-pruning' | 'stump-grinding';
+  name: string;
+  summary: string;
+  /** Render as a plain (non-link) card when false. */
+  link?: boolean;
+}
+
+const { slug, name, summary, link = true } = Astro.props;
+const Tag = link ? 'a' : 'article';
+const href = link ? servicePath(slug) : undefined;
+---
+
+<Tag class="card" href={href}>
+  {
+    slug === 'tree-removal' && (
+      <svg class="card-icon" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <path
+          d="M32 6c-6 0-10 5-10 10 0 2 .6 3.8 1.6 5.3C19 22 16 25.5 16 30c0 3 1.5 5.7 3.8 7.4C17 39 15 42 15 45.5 15 50.7 19.3 55 24.5 55h15c5.2 0 9.5-4.3 9.5-9.5 0-3.5-2-6.5-4.8-8.1 2.3-1.7 3.8-4.4 3.8-7.4 0-4.5-3-8-7.6-8.7 1-1.5 1.6-3.3 1.6-5.3 0-5-4-10-10-10z"
+          fill="currentColor"
+          opacity=".18"
+        />
+        <path
+          d="M32 6c-6 0-10 5-10 10 0 2 .6 3.8 1.6 5.3C19 22 16 25.5 16 30c0 3 1.5 5.7 3.8 7.4C17 39 15 42 15 45.5 15 50.7 19.3 55 24.5 55h15c5.2 0 9.5-4.3 9.5-9.5 0-3.5-2-6.5-4.8-8.1 2.3-1.7 3.8-4.4 3.8-7.4 0-4.5-3-8-7.6-8.7 1-1.5 1.6-3.3 1.6-5.3 0-5-4-10-10-10z"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        />
+        <path
+          d="M32 38v20M28 46l4 4 4-4"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    )
+  }
+  {
+    slug === 'trimming-pruning' && (
+      <svg class="card-icon" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <path
+          d="M32 6v38M32 20l10-10M32 20l-10-10M32 30l12-8M32 30l-12-8M32 40l14-6M32 40l-14-6"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+        <path d="M22 54h20l-3 6H25z" fill="currentColor" />
+        <circle cx="44" cy="14" r="2" fill="currentColor" />
+        <circle cx="20" cy="14" r="2" fill="currentColor" />
+      </svg>
+    )
+  }
+  {
+    slug === 'stump-grinding' && (
+      <svg class="card-icon" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <ellipse cx="32" cy="44" rx="22" ry="6" fill="currentColor" opacity=".18" />
+        <ellipse cx="32" cy="42" rx="18" ry="5" fill="none" stroke="currentColor" stroke-width="2" />
+        <path
+          d="M20 42c2-4 3-10 3-16M32 42c2-6 3-14 3-22M44 42c2-4 3-10 3-16"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+        <path
+          d="M14 50h36"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-dasharray="3 4"
+        />
+      </svg>
+    )
+  }
+  <h3>{name}</h3>
+  <p>{summary}</p>
+  {link && <span class="card-link">Learn more →</span>}
+</Tag>

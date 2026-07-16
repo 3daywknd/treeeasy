@@ -1,0 +1,127 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CallButton from '../components/CallButton.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Faq from '../components/Faq.astro';
+import { business, servicePath } from '../data/business';
+import { getServiceSchema, getBreadcrumbSchema, getFaqSchema } from '../lib/schema';
+
+const title = 'Emergency Tree Service in Ogden, UT | Tree Easy — Storm Damage';
+const description =
+  'Storm-damaged tree in Ogden or Weber County? Tree Easy clears fallen trees, hanging limbs, and split trunks. Licensed & insured. Call (385) 528-4899.';
+
+const trail = [
+  { name: 'Home', path: '/' },
+  { name: 'Emergency Tree Care', path: '/emergency/' },
+];
+
+const faqs = [
+  {
+    q: 'A tree just fell on my house — what do I do first?',
+    a: 'Get everyone out of the affected part of the house and stay clear of the tree. If the tree hit power lines or the mast where the line enters your home, treat every wire as live, keep well back, and call your utility and 911 first. Once people are safe, call us and describe exactly what came down and what it landed on.',
+  },
+  {
+    q: 'Do you offer same-day emergency response?',
+    a: 'We prioritize hazardous situations — a tree on a home, a limb over a driveway, a trunk blocking access. Call and tell us what’s happening; we’ll give you a straight answer on how fast we can get to you rather than a promise we can’t keep.',
+  },
+  {
+    q: 'Will my homeowners insurance cover storm tree damage?',
+    a: 'Often, yes — especially when a tree damages a covered structure like your house, garage, or fence. Take photos before anything is moved, and keep our itemized estimate and invoice. We can’t file the claim for you, but clear documentation of the work helps.',
+  },
+  {
+    q: 'What counts as a tree emergency versus regular work?',
+    a: 'If a tree or limb is actively threatening people, a building, a vehicle, or access — it’s leaning onto a structure, hung up overhead, split, or already down — that’s an emergency. A dead tree that’s stable and out in the yard is important but can be scheduled as a normal removal.',
+  },
+];
+
+const schemas = [
+  getServiceSchema({
+    slug: 'emergency',
+    path: '/emergency/',
+    name: 'Emergency Tree Service',
+    description,
+    serviceType: 'Emergency and storm-damage tree removal',
+  }),
+  getBreadcrumbSchema(trail),
+  getFaqSchema(faqs),
+];
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/emergency/" schemas={schemas}>
+  <section class="page-hero">
+    <div class="wrap page-hero-inner">
+      <h1>Emergency Tree Service in Weber County</h1>
+      <p class="lede">
+        Tree down on your home? Limb hanging over the driveway? Don’t wait it out. Call us and
+        we’ll tell you how fast we can be there.
+      </p>
+      <div class="cta-row">
+        <CallButton variant="primary" size="lg" label={`Call ${business.phoneDisplay} now`} />
+      </div>
+    </div>
+  </section>
+
+  <Breadcrumbs trail={trail} />
+
+  <article class="prose">
+    <div class="wrap">
+      <div class="callout">
+        <p>
+          <strong>If a tree is on power lines or your home’s electrical mast, or anyone is hurt:</strong>
+          call 911 and your utility first, and stay well clear — treat every downed wire as live.
+          Then call Tree Easy for the tree.
+        </p>
+      </div>
+
+      <p class="lead">
+        Storms in northern Utah don’t give notice. A wet spring snow, a hard canyon wind, or a
+        already-weak root system can put a tree through a roof or across your driveway in seconds.
+        When that happens, Tree Easy handles the dangerous part — safely getting the tree off your
+        property.
+      </p>
+
+      <h2>Emergencies we handle</h2>
+      <ul>
+        <li><strong>Trees down on a house, garage, or fence</strong> — carefully removed in pieces to limit further damage.</li>
+        <li><strong>Hanging or hung-up limbs</strong> — “widowmakers” caught in the canopy, brought down under control.</li>
+        <li><strong>Split or partially uprooted trees</strong> — unstable trees that could come the rest of the way down at any time.</li>
+        <li><strong>Blocked driveways and access</strong> — trunks and debris cleared so you can get in and out.</li>
+        <li><strong>Storm cleanup</strong> — hauling off the wreckage after the wind moves on.</li>
+      </ul>
+
+      <h2>What to do while you wait</h2>
+      <ul>
+        <li>Keep people and pets away from the tree and anything it’s leaning on or tangled with.</li>
+        <li>Assume any wire near the tree is live — don’t touch the tree or approach the lines.</li>
+        <li>If it’s safe, take photos from a distance for your insurance before anything is moved.</li>
+        <li>Don’t try to cut a limb that’s under tension or hung up overhead — that’s how people get hurt.</li>
+      </ul>
+
+      <h2>Why call a professional for storm work</h2>
+      <p>
+        Storm-damaged trees are the most dangerous ones to work on. Limbs are under load, trunks are
+        split and unpredictable, and there’s often a roof, a car, or a power line in the mix. This is
+        exactly the wrong time for a ladder and a chainsaw. Tree Easy is fully licensed and insured
+        and does controlled removals for a living — we know how to release tension safely and lower
+        a damaged tree without making the damage worse.
+      </p>
+
+      <div class="callout">
+        <p>
+          Once the emergency is handled, a stump or a second at-risk tree may still need attention.
+          See <a href={servicePath('tree-removal')}>tree removal</a> and
+          <a href={servicePath('stump-grinding')}>stump grinding</a> for the follow-up work.
+        </p>
+      </div>
+    </div>
+  </article>
+
+  <Faq faqs={faqs} />
+
+  <section class="final-cta">
+    <div class="wrap final-cta-inner">
+      <h2>Hazardous tree right now? Call us.</h2>
+      <CallButton variant="primary" size="xl" />
+    </div>
+  </section>
+</BaseLayout>

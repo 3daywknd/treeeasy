@@ -1,1 +1,13 @@
+# build output
+dist/
+# generated types
+.astro/
+# dependencies
+node_modules/
+# worktrees
 .worktrees/
+# environment variables
+.env
+.env.production
+# macOS
+.DS_Store

@@ -1,0 +1,173 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CallButton from '../components/CallButton.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Faq from '../components/Faq.astro';
+import { business, services, servicePath } from '../data/business';
+import { getServiceSchema, getBreadcrumbSchema, getFaqSchema } from '../lib/schema';
+
+const title = 'Tree Service in Ogden, UT | Tree Easy — Weber County Tree Care';
+const description =
+  'Full-service tree care in Ogden & Weber County: removal, trimming, pruning, stump grinding, and emergency work. Licensed, insured, local. Call (385) 528-4899.';
+
+const trail = [
+  { name: 'Home', path: '/' },
+  { name: 'Tree Service', path: '/tree-service/' },
+];
+
+const faqs = [
+  {
+    q: 'What tree services does Tree Easy offer?',
+    a: 'We handle the full range of residential and light-commercial tree care: complete tree removal, trimming and pruning, stump grinding, and emergency or storm-damage work. If it involves a tree on your property, start with a call and we’ll tell you how we can help.',
+  },
+  {
+    q: 'How much does tree work cost?',
+    a: 'Every tree and site is different — size, species, access, and what’s underneath all matter — so there’s no honest flat price we can quote sight-unseen. That’s why estimates are free: we look at the actual job and give you a clear number before any work starts.',
+  },
+  {
+    q: 'Are you licensed and insured?',
+    a: 'Yes. Tree Easy carries full liability insurance and workers’ comp. Tree work is hazardous, and that coverage means an accident on your property never becomes your financial problem.',
+  },
+  {
+    q: 'Do you work year-round?',
+    a: 'Yes. Removals and emergency work happen in every season, and winter’s dormant months are actually an excellent time for pruning. Call any time of year.',
+  },
+];
+
+const schemas = [
+  getServiceSchema({
+    slug: 'tree-service',
+    path: '/tree-service/',
+    name: 'Tree Service',
+    description,
+    serviceType: 'Tree care and removal',
+  }),
+  getBreadcrumbSchema(trail),
+  getFaqSchema(faqs),
+];
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/tree-service/" schemas={schemas}>
+  <section class="page-hero">
+    <div class="wrap page-hero-inner">
+      <h1>Tree Service in Ogden &amp; Weber County</h1>
+      <p class="lede">
+        One local crew for everything your trees need — removal, trimming, stump grinding, and
+        emergency work. Licensed, insured, and straight with you about what the job takes.
+      </p>
+      <div class="cta-row">
+        <CallButton variant="primary" size="lg" label={`Call ${business.phoneDisplay}`} />
+        <CallButton variant="ghost" size="lg" label="Free Estimate" icon={false} />
+      </div>
+    </div>
+  </section>
+
+  <Breadcrumbs trail={trail} />
+
+  <article class="prose">
+    <div class="wrap">
+      <p class="lead">
+        Tree Easy is a locally owned tree service based in Ogden, Utah, serving homeowners and
+        property managers across all of Weber County. Whether you’ve got a dead tree that needs to
+        come down, an overgrown canopy crowding your roof, a stump you keep tripping over, or a
+        storm-damaged limb hanging over the driveway, we do the whole job — safely, cleanly, and at
+        a fair price.
+      </p>
+      <p>
+        This page is the quick map of what we do. Follow any link below to dig into that specific
+        service, or just call <a href={business.phoneHref}>{business.phoneDisplay}</a> and describe
+        what you’re dealing with.
+      </p>
+
+      <h2>Our tree services</h2>
+
+      <h3><a href={servicePath('tree-removal')}>Tree Removal</a></h3>
+      <p>
+        When a tree is dead, hazardous, or simply in the wrong place, we take it down. That includes
+        the difficult ones — trees tight against a house, close to power lines, or boxed into a
+        small backyard — which we bring down in controlled sections rather than felling. Every
+        removal includes complete haul-off and a clean site.
+        <a href={servicePath('tree-removal')}>See tree removal →</a>
+      </p>
+
+      <h3><a href={servicePath('trimming-pruning')}>Trimming &amp; Pruning</a></h3>
+      <p>
+        Regular, proper pruning keeps trees healthy, safe, and good-looking. We deadwood, thin the
+        crown so wind passes through, reduce oversized trees, and clear branches off roofs and
+        driveways — and we never top a tree to do it. Well-pruned trees drop fewer limbs and live
+        longer.
+        <a href={servicePath('trimming-pruning')}>See trimming &amp; pruning →</a>
+      </p>
+
+      <h3><a href={servicePath('stump-grinding')}>Stump Grinding</a></h3>
+      <p>
+        A leftover stump is a trip hazard and a magnet for pests. We grind stumps below grade so you
+        can replant, sod, or pave right over the spot — and we clean up the grindings afterward.
+        Often we’ll remove a tree and grind its stump in the same visit.
+        <a href={servicePath('stump-grinding')}>See stump grinding →</a>
+      </p>
+
+      <h3><a href="/emergency/">Emergency &amp; Storm Damage</a></h3>
+      <p>
+        Wind, heavy snow, and failing roots don’t keep business hours. When a tree or a major limb
+        comes down on your home, driveway, or across a fence, call us — hazardous storm work is a
+        priority job, not a wait-and-see one.
+        <a href="/emergency/">See emergency tree care →</a>
+      </p>
+
+      <h2>Why homeowners choose Tree Easy</h2>
+      <ul>
+        <li>
+          <strong>Licensed and insured.</strong> Full liability coverage and workers’ comp, so
+          high-risk work over your property is never your risk.
+        </li>
+        <li>
+          <strong>Locally owned.</strong> We’re based in Ogden, we answer our own phone, and we
+          show up when we say we will.
+        </li>
+        <li>
+          <strong>Free, honest estimates.</strong> We look at the real job, quote it clearly, and
+          tell you when a tree doesn’t need the work — not just when it does.
+        </li>
+        <li>
+          <strong>Clean finish.</strong> We haul off the wood and brush and rake the site down.
+          The job isn’t done until your property is tidy.
+        </li>
+      </ul>
+
+      <h2>Serving all of Weber County</h2>
+      <p>
+        Ogden is home base, and we cover the whole county — {business.areaServed.join(', ')}. If
+        you’re nearby and not sure whether you’re in our area, just ask.
+      </p>
+
+      <div class="callout">
+        <p>
+          <strong>Not sure which service you need?</strong> You don’t have to know. Call
+          <a href={business.phoneHref}>{business.phoneDisplay}</a>, describe the tree, and we’ll
+          tell you the right fix — removal, pruning, grinding, or nothing at all.
+        </p>
+      </div>
+
+      <h2>Common tree problems in northern Utah</h2>
+      <p>
+        Weber County trees deal with a specific set of stresses: hot, dry summers, heavy wet spring
+        snow that loads branches, canyon and bench winds, and swings between drought and hard
+        freezes. Those conditions show up as drought-stressed and dying limbs, wind-thrown and
+        split trees, and fast-growing shade trees like cottonwood, poplar, and silver maple that
+        get big and brittle. Staying ahead of it with the right pruning — and removing trees that
+        are already failing — is what keeps a small problem from becoming a tree through your roof.
+        For more on this, see our <a href="/blog/">blog</a>.
+      </p>
+    </div>
+  </article>
+
+  <Faq faqs={faqs} />
+
+  <section class="final-cta">
+    <div class="wrap final-cta-inner">
+      <h2>Get a free estimate today.</h2>
+      <CallButton variant="primary" size="xl" />
+    </div>
+  </section>
+</BaseLayout>

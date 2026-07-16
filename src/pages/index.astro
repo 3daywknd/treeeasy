@@ -1,0 +1,110 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CallButton from '../components/CallButton.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import Faq from '../components/Faq.astro';
+import { business, services } from '../data/business';
+import { getOrganizationSchema, getFaqSchema } from '../lib/schema';
+
+const title = 'Tree Easy — Ogden Tree Care | Weber County, UT';
+const description =
+  'Locally owned tree removal, trimming, and stump grinding in Ogden and Weber County, UT. Licensed, insured, free estimates. Call (385) 528-4899.';
+
+const faqs = [
+  {
+    q: 'Do you offer free estimates?',
+    a: 'Yes. We walk the property, look at the trees, and give you a clear quote with no pressure and no obligation. Call and we’ll set a time that works.',
+  },
+  {
+    q: 'Are you licensed and insured?',
+    a: 'Yes — we carry full liability coverage and workers’ comp. If anything ever goes wrong on your property, you’re protected.',
+  },
+  {
+    q: 'What areas do you serve?',
+    a: 'Ogden is home base and we cover all of Weber County — including North Ogden, South Ogden, Roy, Riverdale, Clinton, Pleasant View, West Haven, Hooper, Plain City, and the surrounding communities.',
+  },
+  {
+    q: 'Do you handle hazardous or storm-damaged trees?',
+    a: 'Yes. Dead, leaning, split, or storm-damaged trees near your home or power lines are exactly the kind of work we do. Call and describe the situation so we can prioritize it.',
+  },
+  {
+    q: 'Do you clean up and haul everything away?',
+    a: 'Every time. We haul off the debris and leave the site clean — you shouldn’t be left with a pile of branches and a rutted yard.',
+  },
+  {
+    q: 'Do you grind the stump after removing a tree?',
+    a: 'We can. Stump grinding is a separate service we offer, and we’ll grind below grade so you can replant, sod, or pave right over it. Just ask when you call.',
+  },
+];
+
+const schemas = [getOrganizationSchema(), getFaqSchema(faqs)];
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/" schemas={schemas}>
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <h1>Weber County’s Trusted Tree Care.</h1>
+      <p class="lede">
+        Tree removal, expert trimming, and stump grinding — done safely, cleaned up, and priced
+        fair. Locally owned in Ogden.
+      </p>
+      <div class="cta-row">
+        <CallButton variant="primary" size="lg" label={`Call ${business.phoneDisplay}`} />
+        <CallButton variant="ghost" size="lg" label="Free Estimates" icon={false} />
+      </div>
+      <ul class="hero-badges" aria-label="Trust badges">
+        <li>Licensed &amp; Insured</li>
+        <li>Locally Owned</li>
+        <li>Free Estimates</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="services" class="services">
+    <div class="wrap">
+      <h2>What we do</h2>
+      <div class="cards">
+        {services.map((s) => <ServiceCard slug={s.slug} name={s.shortName} summary={s.summary} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="why">
+    <div class="wrap why-inner">
+      <h2>Why Tree Easy</h2>
+      <ul class="why-list">
+        <li>
+          <strong>Licensed &amp; Insured</strong>
+          <span>Full liability and workers’ comp. If it ever matters, you’re covered.</span>
+        </li>
+        <li>
+          <strong>Locally Owned</strong>
+          <span>Ogden-based. We answer our own phone, show up when we say, and stand behind the work.</span>
+        </li>
+        <li>
+          <strong>Free Estimates</strong>
+          <span>Walk the property, quote the job, no pressure. Call and we’ll set a time.</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="area" class="area">
+    <div class="wrap">
+      <h2>Serving all of Weber County</h2>
+      <p class="area-lede">Ogden is home base — we cover the whole county.</p>
+      <ul class="area-list" aria-label="Cities served">
+        {business.areaServed.map((city) => <li>{city}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <Faq faqs={faqs} />
+
+  <section class="final-cta">
+    <div class="wrap final-cta-inner">
+      <h2>Call for a free estimate.</h2>
+      <CallButton variant="primary" size="xl" />
+    </div>
+  </section>
+</BaseLayout>
