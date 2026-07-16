@@ -40,28 +40,6 @@ function openingHours(): JsonLd[] | undefined {
   }));
 }
 
-function aggregateRating(): JsonLd | undefined {
-  if (!business.reviews.length) return undefined;
-  const ratingValue =
-    business.reviews.reduce((sum, r) => sum + r.rating, 0) / business.reviews.length;
-  return {
-    '@type': 'AggregateRating',
-    ratingValue: Number(ratingValue.toFixed(1)),
-    reviewCount: business.reviews.length,
-  };
-}
-
-function reviews(): JsonLd[] | undefined {
-  if (!business.reviews.length) return undefined;
-  return business.reviews.map((r) => ({
-    '@type': 'Review',
-    author: { '@type': 'Person', name: r.author },
-    reviewRating: { '@type': 'Rating', ratingValue: r.rating },
-    reviewBody: r.body,
-    datePublished: r.datePublished,
-  }));
-}
-
 /**
  * The full business node (TreeService is a LocalBusiness subtype).
  * Emitted once, on the homepage. This is the anchor for ORG_ID.
@@ -104,10 +82,6 @@ export function getOrganizationSchema(): JsonLd {
       identifier: business.licenseNumber,
     };
   }
-  const rating = aggregateRating();
-  if (rating) node.aggregateRating = rating;
-  const rev = reviews();
-  if (rev) node.review = rev;
 
   return node;
 }

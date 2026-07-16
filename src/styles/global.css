@@ -630,6 +630,42 @@ a.card:hover {
   .footer-cols { grid-template-columns: 1fr; }
 }
 
+/* ---------- footer extras ---------- */
+.footer-hours { color: var(--cream-100); font-size: .9rem; margin: 8px 0 0; }
+.footer-license { color: var(--moss-300); font-size: .82rem; margin: 4px 0 0; }
+
+/* ---------- testimonials ---------- */
+.testimonials { padding: 64px 0; background: var(--cream-50); }
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 22px;
+}
+.testimonial {
+  position: relative;
+  margin: 0;
+  padding: 26px 24px 22px;
+  background: #fff;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+}
+.testimonial .quote-mark {
+  width: 30px;
+  height: 30px;
+  color: var(--sun-500);
+  margin-bottom: 6px;
+}
+.testimonial blockquote {
+  margin: 0 0 14px;
+  color: var(--ink-900);
+  line-height: 1.5;
+}
+.testimonial figcaption {
+  font-family: "Rockwell", "Roboto Slab", Georgia, serif;
+  font-weight: 700;
+  color: var(--forest-800);
+}
+
 /* ---------- blog ---------- */
 .post-list { list-style: none; padding: 0; margin: 0; }
 .post-list > li {

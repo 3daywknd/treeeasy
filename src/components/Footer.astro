@@ -20,6 +20,8 @@ const addressLine = business.address.streetAddress
         </div>
         <p class="footer-nap">{addressLine} · Serving all of Weber County</p>
         <a class="footer-phone" href={business.phoneHref}>{business.phoneDisplay}</a>
+        <p class="footer-hours">{business.hoursDisplay}</p>
+        {business.licenseNumber && <p class="footer-license">Licensed &amp; insured · Lic. #{business.licenseNumber}</p>}
       </div>
 
       {

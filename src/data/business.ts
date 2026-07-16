@@ -43,20 +43,45 @@ export const business = {
     longitude: -111.9738,
   },
 
-  // TODO(owner): real founding year -> foundingDate + "Serving Ogden since YYYY".
-  foundingYear: '' as string,
+  foundingYear: '2026' as string,
 
-  // TODO(owner): real operating hours -> openingHoursSpecification.
-  // Example shape (uncomment + set once confirmed):
-  // hours: [{ days: ['Monday','Tuesday','Wednesday','Thursday','Friday'], opens: '07:00', closes: '18:00' }],
-  hours: [] as Array<{ days: string[]; opens: string; closes: string }>,
+  /** Operating hours -> openingHoursSpecification. Open 7 days, 8am–5pm. */
+  hours: [
+    {
+      days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      opens: '08:00',
+      closes: '17:00',
+    },
+  ] as Array<{ days: string[]; opens: string; closes: string }>,
+  /** Human-readable hours for on-page display. */
+  hoursDisplay: 'Open 7 days a week, 8am–5pm',
 
-  // TODO(owner): publishable license number -> hasCredential. Omitted until provided.
-  licenseNumber: '' as string,
+  licenseNumber: '14688870-0160' as string,
 
-  // TODO(owner): real customer reviews only (name + date + consent).
-  // Fabricated review/aggregateRating markup violates Google policy — leave empty until real.
-  reviews: [] as Array<{ author: string; rating: number; body: string; datePublished: string }>,
+  /**
+   * Real customer testimonials (owner-provided, with consent). Displayed on-page
+   * only. Intentionally NOT emitted as review/aggregateRating schema: Google does
+   * not support self-serving review rich results (reviews about your own business
+   * on your own site), and such markup risks a structured-data penalty.
+   */
+  reviews: [
+    {
+      author: 'John Gemme',
+      body: 'Excellent job by Caden and Matt!! We had a 30′ pine very close to the house that needed to be taken down delicately. They made it look easy as they methodically limbed and took the tree down piece by piece. We also had various dead oaks and a couple overgrown mugo pine that needed to go. They were professional, polite and had great safety skills. I highly recommend hiring these guys for your tree removal project!',
+    },
+    {
+      author: 'Robert Jones',
+      body: "Matt is a knowledgeable guy and did a fantastic job. He was able to help me keep a huge tree I thought I'd have to remove. Work was completed quickly and price was very fair. I'm having him back for another job this year.",
+    },
+    {
+      author: 'Arielle Neely',
+      body: 'Matt was exceptional to work with. He was more than willing to meet with us and deliver his most professional and honest opinion regarding our almost 100-year-old Catalpa tree. The last time our tree was pruned by someone else, we were told they almost killed it. When I explained this to Matt, he came by to take a look and provided both an honest opinion and a reasonable quote. He delivers quality work, he’s extremely reliable and knowledgeable, and he’s both professional and extremely friendly. Our Catalpa is looking better than it has in a very long time. I wouldn’t trust anyone else with our tree work. This is your new tree guy!',
+    },
+    {
+      author: 'Tessa Stewart',
+      body: 'Matt did a great job for us!! He removed a couple of trees and trimmed a few others, and gave us some great advice on caring for our trees. He was very professional and friendly. And the price was very reasonable!',
+    },
+  ] as Array<{ author: string; body: string }>,
 
   social: {
     instagram: 'https://www.instagram.com/treeeasyogden/',

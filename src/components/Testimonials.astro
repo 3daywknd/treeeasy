@@ -1,0 +1,35 @@
+---
+/** Visible customer testimonials (owner-provided, with consent). No review schema
+ * — self-serving review rich results aren't supported by Google. */
+import { business } from '../data/business';
+
+interface Props {
+  heading?: string;
+}
+const { heading = 'What our customers say' } = Astro.props;
+const reviews = business.reviews;
+---
+
+{
+  reviews.length > 0 && (
+    <section class="testimonials" aria-labelledby="testimonials-heading">
+      <div class="wrap">
+        <h2 id="testimonials-heading">{heading}</h2>
+        <div class="testimonial-grid">
+          {reviews.map((r) => (
+            <figure class="testimonial">
+              <svg class="quote-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path
+                  d="M10 7H6a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v2a2 2 0 0 1-2 2H5v2h1a4 4 0 0 0 4-4V7zm10 0h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v2a2 2 0 0 1-2 2h-1v2h1a4 4 0 0 0 4-4V7z"
+                  fill="currentColor"
+                />
+              </svg>
+              <blockquote>{r.body}</blockquote>
+              <figcaption>— {r.author}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
