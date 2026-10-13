@@ -72,6 +72,34 @@ if (import.meta.env.DEV && description.length > 165) {
         <script type="application/ld+json" set:html={JSON.stringify(schema)} />
       ))
     }
+
+    <!-- Google tag (gtag.js) -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=AW-18281656885"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'AW-18281656885');
+
+      // "Outbound click" conversion: fire on tel:/mailto:/external link clicks,
+      // not on page load, so page views aren't counted as conversions.
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest && e.target.closest('a[href]');
+        if (!a) return;
+        var outbound =
+          a.protocol === 'tel:' ||
+          a.protocol === 'mailto:' ||
+          (/^https?:$/.test(a.protocol) && a.host !== location.host);
+        if (!outbound) return;
+        gtag('event', 'conversion', {
+          send_to: 'AW-18281656885/KFIwCO_865odELXkr41E',
+          value: 1.0,
+          currency: 'USD',
+        });
+      });
+    </script>
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>

@@ -15,7 +15,7 @@ Path: @/src/layouts
 
 ### Core Implementation
 
-- **BaseLayout `<head>`** emits: title, meta description, canonical (`new URL(canonicalPath, Astro.site)`), optional `noindex`, complete Open Graph + Twitter tags, theme-color, favicon / apple-touch-icon, and a `<link rel="sitemap">` to `/sitemap-index.xml`. Each item of the `schemas` prop is rendered as its own JSON-LD script.
+- **BaseLayout `<head>`** emits: title, meta description, canonical (`new URL(canonicalPath, Astro.site)`), optional `noindex`, complete Open Graph + Twitter tags, theme-color, favicon / apple-touch-icon, and a `<link rel="sitemap">` to `/sitemap-index.xml`. Each item of the `schemas` prop is rendered as its own JSON-LD script. It also loads the Google Ads tag (`AW-18281656885`) and fires the "Outbound click" conversion on clicks of `tel:`, `mailto:`, and external links.
 - BaseLayout props: `title`, `description`, `canonicalPath`, `ogType`, `ogImage` (defaults to `/og-image.jpg`), `schemas`, `noindex`. In DEV it warns when a meta description exceeds 165 chars.
 - **ServiceLayout** takes `slug` (union of the three service slugs), `name`, `title`, `description`, `heroLede`, and `faqs`. It builds the trail Home -> Tree Service -> {name} and constructs `[getServiceSchema, getBreadcrumbSchema, getFaqSchema]`, then passes them to BaseLayout. Page body content flows through its `<slot>` inside a `.prose` article.
 
