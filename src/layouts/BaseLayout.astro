@@ -83,16 +83,11 @@ if (import.meta.env.DEV && description.length > 165) {
       gtag('js', new Date());
       gtag('config', 'AW-18281656885');
 
-      // "Outbound click" conversion: fire on tel:/mailto:/external link clicks,
-      // not on page load, so page views aren't counted as conversions.
+      // "Outbound click" conversion: fire on tel:/mailto: link clicks, not on
+      // page load, so page views aren't counted as conversions.
       document.addEventListener('click', function (e) {
         var a = e.target.closest && e.target.closest('a[href]');
-        if (!a) return;
-        var outbound =
-          a.protocol === 'tel:' ||
-          a.protocol === 'mailto:' ||
-          (/^https?:$/.test(a.protocol) && a.host !== location.host);
-        if (!outbound) return;
+        if (!a || (a.protocol !== 'tel:' && a.protocol !== 'mailto:')) return;
         gtag('event', 'conversion', {
           send_to: 'AW-18281656885/KFIwCO_865odELXkr41E',
           value: 1.0,
