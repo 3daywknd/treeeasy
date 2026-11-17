@@ -21,6 +21,7 @@ Path: @/src/components
 - **Faq** renders the visible FAQ from a `{q, a}[]` array using `<details>` accordions.
 - **Breadcrumbs** renders a visible trail; the last crumb is a non-link `aria-current="page"`.
 - **ServiceCard** / **RelatedServices** render service links from the `services` list; `RelatedServices` filters out the current page via an `exclude` slug.
+- **PhotoGrid** renders a list of `Photo`s from `@/src/data/photos.ts` as `<Picture>` (avif + webp, jpg fallback, 360–1080w srcset, lazy). Two columns everywhere; three inside the homepage `.recent-work` section from 800px up. Tiles are cropped to 3:4.
 
 ### Things to Know
 

@@ -21,11 +21,13 @@ Path: @/src/data
 - `google` holds the Google Business Profile Maps URL (by CID) and the write-review URL (by place ID).
 - `sameAs` is the array of profile URLs emitted in schema: Instagram and the Google Maps listing.
 - `services` is an ordered list of `{ slug, name, shortName, summary }`; `Service` type is derived from it.
+- `photos.ts` maps owner-supplied job photos (`@/src/assets/photos/`, originally from the Google Business Profile) to alt text. Consumed by `@/src/components/PhotoGrid.astro` on the homepage and the tree-removal and trimming pages.
 
 ### Things to Know
 
 - Fields marked `TODO(owner)` — `streetAddress`, `postalCode`, `foundingYear`, `hours`, `reviews` — are **intentionally empty placeholders**. Schema builders in `@/src/lib/schema.ts` omit any field whose value is empty, so nothing fabricated ships.
 - `reviews` is deliberately empty: fabricated review / aggregateRating markup violates Google policy, so it stays empty until real, consented reviews exist.
 - `geo` is the Ogden centroid, not an exact business location, since no street address is published yet.
+- Job photos are taken at customers' homes. Committed sources must have all metadata stripped (EXIF/GPS, XMP, ICC, IPTC) and be downscaled to ~2400px on the long edge. Alt text describes only what is visible: no locations, species, customer names, or dates.
 
 Created and maintained by nojo.

@@ -1,0 +1,28 @@
+---
+/** Grid of job photos: two columns, three on wide screens inside `.recent-work`. */
+import { Picture } from 'astro:assets';
+import type { Photo } from '../data/photos';
+
+interface Props {
+  photos: Photo[];
+}
+
+const { photos } = Astro.props;
+---
+
+<ul class="photo-grid">
+  {
+    photos.map((p) => (
+      <li>
+        <Picture
+          src={p.src}
+          alt={p.alt}
+          formats={['avif', 'webp']}
+          width={720}
+          widths={[360, 540, 720, 1080]}
+          sizes="(min-width: 800px) 352px, calc(50vw - 26px)"
+        />
+      </li>
+    ))
+  }
+</ul>

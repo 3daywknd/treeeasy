@@ -1,5 +1,7 @@
 ---
 import ServiceLayout from '../../layouts/ServiceLayout.astro';
+import PhotoGrid from '../../components/PhotoGrid.astro';
+import { photos } from '../../data/photos';
 
 const faqs = [
   {
@@ -34,6 +36,8 @@ const faqs = [
     liability. Tree Easy removes trees of every size across Ogden and Weber County, from a single
     backyard maple to a row of failing cottonwoods, with the rigging and insurance to do it safely.
   </p>
+
+  <PhotoGrid photos={[photos.craneTreeTop, photos.craneTrunkSection]} />
 
   <h2>When a tree should come down</h2>
   <p>Not every problem tree needs removing — but some clearly do. Call us if you’re seeing:</p>
@@ -79,6 +83,8 @@ const faqs = [
     We chip the brush, load the wood, and clear the debris — then rake and blow the area so you’d
     barely know we were there, except the tree is gone.
   </p>
+
+  <PhotoGrid photos={[photos.climberOnLimbedTrunk, photos.fellingNotch]} />
 
   <div class="callout">
     <p>

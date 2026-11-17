@@ -1,5 +1,7 @@
 ---
 import ServiceLayout from '../../layouts/ServiceLayout.astro';
+import PhotoGrid from '../../components/PhotoGrid.astro';
+import { photos } from '../../data/photos';
 
 const faqs = [
   {
@@ -34,6 +36,8 @@ const faqs = [
     wind better, drops fewer limbs, and lives longer. Tree Easy prunes for health and safety across
     Ogden and Weber County — and we never top a tree to do it.
   </p>
+
+  <PhotoGrid photos={[photos.climberInCanopy, photos.climbersInBareTrees]} />
 
   <h2>What we do</h2>
   <ul>
