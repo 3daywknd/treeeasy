@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CallButton from '../components/CallButton.astro';
+import { business } from '../data/business';
+
+const title = `Page Not Found | ${business.name}`;
+const description =
+  'That page doesn’t exist. Head back to the Tree Easy homepage or call for tree removal, trimming, and stump grinding in Ogden.';
+---
+
+<BaseLayout title={title} description={description} noindex>
+  <section class="page-hero">
+    <div class="wrap page-hero-inner">
+      <h1>Page not found</h1>
+      <p class="lede">
+        That page doesn’t exist or has moved. Try the <a href="/">homepage</a> or our
+        <a href="/tree-service/">tree services</a> — or just give us a call.
+      </p>
+      <div class="cta-row">
+        <CallButton variant="primary" size="lg" label={`Call ${business.phoneDisplay}`} />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

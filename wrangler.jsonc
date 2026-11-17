@@ -1,0 +1,19 @@
+// Assets-only Worker serving the static Astro build (no Worker script).
+// Deployed by Cloudflare Workers Builds; see README "Deploy".
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "treeeasy",
+  "compatibility_date": "2026-11-16",
+  // Serve only on the custom domain; no public workers.dev or preview URL copies.
+  "workers_dev": false,
+  "preview_urls": false,
+  "assets": {
+    "directory": "./dist",
+    // Every page is built as <route>/index.html and every canonical URL ends in "/".
+    // This serves HTML only at the trailing-slash URL and 307-redirects the
+    // slashless and /index.html forms to it.
+    "html_handling": "force-trailing-slash",
+    // Unmatched paths serve dist/404.html with a 404 status.
+    "not_found_handling": "404-page"
+  }
+}

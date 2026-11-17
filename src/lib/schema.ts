@@ -66,6 +66,8 @@ export function getOrganizationSchema(): JsonLd {
       name: `${city}, ${business.address.region}`,
     })),
     sameAs,
+    hasMap: business.google.mapsUrl,
+    employee: business.team.map((name) => ({ '@type': 'Person', name })),
     makesOffer: services.map((s) => ({
       '@type': 'Offer',
       itemOffered: { '@type': 'Service', name: s.name },

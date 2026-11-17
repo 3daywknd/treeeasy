@@ -1,7 +1,7 @@
 ---
 title: 'Seasonal Tree Care in Ogden: A Month-by-Month Guide'
 description: 'When to prune, water, inspect, and remove trees in Ogden and Weber County — a season-by-season guide built around northern Utah’s weather.'
-pubDate: 2026-03-18
+pubDate: 2026-07-15
 ---
 
 Trees in Weber County live on a schedule set by the Wasatch Front: dry summers, heavy wet spring snow, canyon winds, and a real winter. Working *with* that schedule — instead of only reacting when something goes wrong — is the difference between a yard full of healthy trees and a surprise limb through your roof. Here's how the year breaks down.

@@ -23,6 +23,7 @@ Path: @/src/lib
 
 ### Things to Know
 
+- The `TreeService` node carries `hasMap` (Google Maps listing URL) and `employee` (name-only `Person` nodes from `business.team`).
 - Optional schema fields (`openingHoursSpecification`, `address` street/postal, `foundingDate`, `hasCredential`, `aggregateRating`, `review`) are attached **only when a real value exists** in `business.ts`. Empty TODO values produce no output.
 - `aggregateRating` / `review` are computed from `business.reviews`; while that array is empty they emit nothing (avoids fabricated ratings).
 - FAQ and Breadcrumb schema correctness depends on the page passing the identical array/trail used to render the visible component; `scripts/verify-seo.mjs` checks the provider `@id` linkage and FAQ presence post-build.

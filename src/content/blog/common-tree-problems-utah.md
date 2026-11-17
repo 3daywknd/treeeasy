@@ -1,7 +1,7 @@
 ---
 title: '7 Common Tree Problems in Northern Utah (and What to Do About Them)'
 description: 'Drought stress, wet-snow breakage, borers, and more — the tree problems Weber County homeowners run into most, how to spot them, and when to call a pro.'
-pubDate: 2026-05-06
+pubDate: 2026-07-15
 ---
 
 Every region stresses trees in its own way, and northern Utah is tougher than it looks. Between the dry summers, the wet spring snow, the alkaline soils, and the wind coming off the benches, Weber County trees deal with a specific set of problems. Here are the seven we see most — and what you should do about each.

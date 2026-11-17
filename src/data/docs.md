@@ -17,7 +17,9 @@ Path: @/src/data
 ### Core Implementation
 
 - `business` is a `const` object: name, phone (`phoneDisplay` / `phoneHref` / spoken `phoneAria`), price range, address, geo, social, and the ordered `areaServed` city list (used both as the visible UI list and schema `areaServed`).
-- `sameAs` is the array of social profile URLs emitted in schema.
+- `team` holds first names only (shown in the homepage "Who we are" section and emitted as schema `employee` Persons). No roles or bios.
+- `google` holds the Google Business Profile Maps URL (by CID) and the write-review URL (by place ID).
+- `sameAs` is the array of profile URLs emitted in schema: Instagram and the Google Maps listing.
 - `services` is an ordered list of `{ slug, name, shortName, summary }`; `Service` type is derived from it.
 
 ### Things to Know

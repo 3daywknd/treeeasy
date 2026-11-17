@@ -39,6 +39,10 @@ const faqs = [
 ];
 
 const schemas = [getOrganizationSchema(), getFaqSchema(faqs)];
+
+const teamNames = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' }).format(
+  business.team
+);
 ---
 
 <BaseLayout title={title} description={description} canonicalPath="/" schemas={schemas}>
@@ -87,6 +91,16 @@ const schemas = [getOrganizationSchema(), getFaqSchema(faqs)];
           <span>Walk the property, quote the job, no pressure. Call and we’ll set a time.</span>
         </li>
       </ul>
+    </div>
+  </section>
+
+  <section class="who" aria-labelledby="who-heading">
+    <div class="wrap">
+      <h2 id="who-heading">Who we are</h2>
+      <p class="who-lede">
+        We’re {teamNames} of {business.name} — locally owned and based in Ogden, licensed and
+        insured.
+      </p>
     </div>
   </section>
 
