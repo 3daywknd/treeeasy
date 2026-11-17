@@ -96,8 +96,9 @@ const servicesActive = desktopNav.services.links.some((item) => isActive(item.hr
 
 <script>
   // Services dropdown: opens on mouse hover, click/tap, or Enter/Space on the button.
-  // A click after a hover pins it open; Escape, a click outside, or focus leaving closes it.
-  // Until this runs, CSS opens the menu on :hover / :focus-within instead.
+  // A click after a hover pins it open; Escape (wherever focus is), a click outside, focus
+  // leaving, or following one of its links closes it. Until this runs, CSS opens the menu
+  // on :hover / :focus-within instead.
   for (const item of document.querySelectorAll<HTMLElement>('[data-nav-dropdown]')) {
     const button = item.querySelector('button');
     if (!button) continue;
@@ -125,20 +126,31 @@ const servicesActive = desktopNav.services.links.some((item) => isActive(item.hr
     item.addEventListener('pointerleave', (e) => {
       if (e.pointerType === 'mouse' && !pinned) setOpen(false);
     });
-    item.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && isOpen()) {
-        setOpen(false);
-        button.focus();
-      }
-    });
     item.addEventListener('focusout', (e) => {
       const next = e.relatedTarget;
       if (next instanceof Node && !item.contains(next)) setOpen(false);
     });
+    item.addEventListener('click', (e) => {
+      if (e.target instanceof Element && e.target.closest('a')) setOpen(false);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape' || !isOpen()) return;
+      const focusInside = item.contains(document.activeElement);
+      setOpen(false);
+      if (focusInside) button.focus();
+    });
     document.addEventListener('pointerdown', (e) => {
       if (e.target instanceof Node && !item.contains(e.target)) setOpen(false);
+    });
+    // A page restored from the back/forward cache keeps its DOM, open menu included.
+    window.addEventListener('pageshow', (e) => {
+      if (e.persisted) setOpen(false);
     });
 
     item.dataset.ready = '';
   }
+
+  window.addEventListener('pageshow', (e) => {
+    if (e.persisted) document.querySelector('.nav-toggle')?.removeAttribute('open');
+  });
 </script>

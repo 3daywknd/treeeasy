@@ -113,7 +113,9 @@ p { margin: 0 0 1em; }
 }
 
 .header-call .icon { width: 18px; height: 18px; }
-@media (max-width: 639px) {
+/* Header breakpoints pair a px width with an em width: the brand and nav text are in rem, so a larger
+   default font size needs the narrower layout sooner. The px half covers default sizes below 16px. */
+@media (max-width: 639px), (max-width: 39.99em) {
   .header-call span { display: none; }
   .header-call { padding: 10px 12px; }
   .nav-toggle > summary span { display: none; }
@@ -121,7 +123,8 @@ p { margin: 0 0 1em; }
   .brand img { height: 44px; }
   .brand-tag { font-size: .75rem; }
 }
-@media (max-width: 389px) {
+@media (max-width: 389px), (max-width: 24.3em) {
+  .brand { gap: 8px; }
   .brand-tag { display: none; }
 }
 
@@ -539,11 +542,15 @@ p { margin: 0 0 1em; }
 }
 .nav-toggle-menu a:hover { background: var(--cream-100); }
 
-/* The full nav (brand + Services, Emergency, Blog + call button) needs ~730px of row; below this, the menu toggle takes over. */
-@media (max-width: 799px) {
+/* The full nav (brand + Services, Emergency, Blog + call button) needs ~780px at a 16px default font;
+   below this, the menu toggle takes over. See the note on the header breakpoints above. */
+@media (max-width: 799px), (max-width: 49.99em) {
   .primary-nav { display: none; }
   .nav-toggle { display: block; }
   .header-inner { gap: 10px; }
+}
+@media (max-width: 389px), (max-width: 24.3em) {
+  .header-inner { gap: 6px; }
 }
 
 /* ---------- service card as link ---------- */
