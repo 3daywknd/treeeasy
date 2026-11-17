@@ -16,7 +16,7 @@ export const ORG_ID = `${SITE_URL}/#organization`;
 
 export const business = {
   name: 'Tree Easy',
-  legalName: 'Tree Easy',
+  legalName: 'Tree Easy LLC',
   tagline: 'Ogden · Weber County',
   url: SITE_URL,
   logo: `${SITE_URL}/tree-easy-logo.png`,
@@ -61,7 +61,6 @@ export const business = {
   /** Human-readable hours for on-page display. */
   hoursDisplay: 'Mon–Sat 7am–9pm, Sun 7:30am–9pm',
 
-  licenseNumber: '14688870-0160' as string,
 
   /**
    * Real customer testimonials (owner-provided, with consent). Displayed on-page

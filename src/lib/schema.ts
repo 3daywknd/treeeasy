@@ -5,7 +5,7 @@
  * homepage) addressed by ORG_ID. Every other page references it by `@id` rather
  * than restating the business — a proper schema.org entity graph.
  *
- * Optional fields (hours, address, reviews, license, foundingDate) are included
+ * Optional fields (hours, address, reviews, foundingDate) are included
  * ONLY when a real value exists in business.ts. No placeholders leak into output.
  */
 
@@ -41,15 +41,16 @@ function openingHours(): JsonLd[] | undefined {
 }
 
 /**
- * The full business node (TreeService is a LocalBusiness subtype).
+ * The full business node (HomeAndConstructionBusiness is a LocalBusiness subtype; schema.org has no TreeService type).
  * Emitted once, on the homepage. This is the anchor for ORG_ID.
  */
 export function getOrganizationSchema(): JsonLd {
   const node: JsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'TreeService',
+    '@type': 'HomeAndConstructionBusiness',
     '@id': ORG_ID,
     name: business.name,
+    legalName: business.legalName,
     url: business.url,
     image: business.image,
     logo: business.logo,
@@ -77,13 +78,6 @@ export function getOrganizationSchema(): JsonLd {
   const hours = openingHours();
   if (hours) node.openingHoursSpecification = hours;
   if (business.foundingYear) node.foundingDate = business.foundingYear;
-  if (business.licenseNumber) {
-    node.hasCredential = {
-      '@type': 'EducationalOccupationalCredential',
-      credentialCategory: 'license',
-      identifier: business.licenseNumber,
-    };
-  }
 
   return node;
 }
