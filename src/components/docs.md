@@ -5,7 +5,7 @@ Path: @/src/components
 ### Overview
 
 - Reusable `.astro` building blocks shared across pages and layouts: click-to-call button, header, footer, service card, FAQ, breadcrumbs, and related-services cross-links.
-- All are static and JS-free (no client hydration); interactivity uses native `<details>`.
+- All are static (no client hydration). Interactivity uses native `<details>`, except the header's Services dropdown, which has a small inline script with a CSS fallback.
 
 ### How it fits into the larger codebase
 
@@ -16,8 +16,9 @@ Path: @/src/components
 ### Core Implementation
 
 - **CallButton** reads phone number/href from `business.ts` — the number changes in one place. `variant`/`size`/`label`/`icon` props reproduce the original hand-coded buttons.
-- **Header** renders `primaryNav`, marks the active link via `aria-current` (path-prefix match), shows the optimized logo, and provides a no-JS mobile menu using a `<details>` toggle.
-- **Footer** (every page) renders `footerColumns` plus a brand/NAP column (name, service-area line, phone, `hoursDisplay`, "Lic. #") and a Connect column (Instagram, "Find us on Google", "Leave a Google review"); the address line collapses to locality/region when no `streetAddress` is set.
+- **Header** renders `desktopNav` (a "Services" dropdown holding the `/tree-service/` pillar and the three service pages, then Emergency and Blog), marks the active link via `aria-current` (path-prefix match; the Services button gets an `is-current` underline when any of its links is active), shows the optimized logo, and provides a no-JS mobile menu using a `<details>` toggle that lists the flat `primaryNav`.
+- **Services dropdown**: a `<button>` with `aria-expanded`/`aria-controls`. The script opens it on mouse hover, click/tap, or Enter/Space; a click after a hover pins it open; Escape (returns focus to the button), a click outside, or focus leaving the item closes it. The script sets `data-ready`; until then CSS shows the menu on `:hover`/`:focus-within`, so the links stay reachable without JS.
+- **Footer** (every page) renders `footerColumns` plus a brand/NAP column (name, service-area line, phone, `hoursDisplay`) and a Connect column (Instagram, "Find us on Google", "Leave a Google review"); the address line collapses to locality/region when no `streetAddress` is set.
 - **Faq** renders the visible FAQ from a `{q, a}[]` array using `<details>` accordions.
 - **Breadcrumbs** renders a visible trail; the last crumb is a non-link `aria-current="page"`.
 - **ServiceCard** / **RelatedServices** render service links from the `services` list; `RelatedServices` filters out the current page via an `exclude` slug.
@@ -28,7 +29,7 @@ Path: @/src/components
 - **FAQ visible/schema parity is a contract.** `Faq` only renders content; the matching `FAQPage` schema is built by the *page* from the same `faqs` array (`getFaqSchema`). The two must be fed the identical array — a Google requirement for FAQ rich results.
 - Breadcrumbs follow the same pattern: the component and `getBreadcrumbSchema` are handed the same `trail`.
 - The mobile nav relies entirely on `<details>`/`<summary>`; there is no JavaScript fallback because none is needed.
-- Header row items never shrink. The full nav needs ~1200px of row, so the header container is 1240px (wider than the 1100px page `.wrap`) and the `<details>` menu takes over below 1240px. Under 640px the call button and menu toggle go icon-only and the logo drops to 44px; under 390px the tagline hides. Adding a nav item means re-measuring that breakpoint.
+- Header row items never shrink. The header uses the page's 1100px `.wrap`; the full nav row needs ~722px, so it shows from 800px up and the `<details>` menu takes over below. Under 640px the call button and menu toggle go icon-only and the logo drops to 44px; under 390px the tagline hides. Adding a top-level nav item means re-measuring the 800px breakpoint.
 - The logo asset (`@/src/assets/tree-easy-logo.png`) has a transparent background and is sized by `height` only, so it keeps its non-square aspect ratio.
 
 Created and maintained by nojo.
