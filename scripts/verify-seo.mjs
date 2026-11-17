@@ -61,9 +61,12 @@ for (const file of htmlFiles) {
       .replace(/<[^>]+>/g, ' ')
   ).replace(/\s+/g, ' ');
 
+  // Noindex pages (the 404) have no canonical URL and need no structured data.
+  const noindex = /<meta name="robots" content="[^"]*noindex/.test(html);
+
   // --- canonical ---
   const canonical = html.match(/<link rel="canonical" href="([^"]+)"/);
-  if (!canonical) err('missing canonical');
+  if (!canonical && !noindex) err('missing canonical');
 
   // --- meta description length ---
   const desc = html.match(/<meta name="description" content="([^"]*)"/);
@@ -109,7 +112,7 @@ for (const file of htmlFiles) {
       }
     }
   }
-  if (ldCount === 0) warn('no JSON-LD on page');
+  if (ldCount === 0 && !noindex) warn('no JSON-LD on page');
 
   // --- internal link integrity ---
   const hrefs = [...html.matchAll(/href="(\/[^"#?]*)/g)].map((x) => x[1]);
