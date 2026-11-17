@@ -22,7 +22,8 @@ Path: @/src/components
 - **Faq** renders the visible FAQ from a `{q, a}[]` array using `<details>` accordions.
 - **Breadcrumbs** renders a visible trail; the last crumb is a non-link `aria-current="page"`.
 - **ServiceCard** / **RelatedServices** render service links from the `services` list; `RelatedServices` filters out the current page via an `exclude` slug.
-- **PhotoGrid** renders a list of `Photo`s from `@/src/data/photos.ts` as `<Picture>` (avif + webp, jpg fallback, 360–1080w srcset, lazy). Two columns everywhere; three inside the homepage `.recent-work` section from 800px up. Tiles are cropped to 3:4.
+- **PhotoGrid** renders a list of `Photo`s from `@/src/data/photos.ts` as `<Picture>` (avif + webp, jpg fallback, 360–1080w srcset). Lazy by default; pass `eager` for a grid that can sit above the fold (the first grid on each service page). Two columns everywhere; three inside the homepage `.recent-work` section from 800px up. Tiles are cropped to 3:4.
+- **PhotoGrid must pass `fallbackFormat`.** Without it, `<Picture>` reads `src.format` to choose the fallback; any property read on an imported image marks the original as used, and the build then ships the full-size source JPEG in `dist/_astro`. `<Image>` never reads the metadata, so it doesn't have this problem.
 
 ### Things to Know
 

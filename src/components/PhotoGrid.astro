@@ -5,22 +5,28 @@ import type { Photo } from '../data/photos';
 
 interface Props {
   photos: Photo[];
+  /** Load immediately instead of lazily; for a grid that can sit above the fold. */
+  eager?: boolean;
 }
 
-const { photos } = Astro.props;
+const { photos, eager = false } = Astro.props;
 ---
 
 <ul class="photo-grid">
   {
     photos.map((p) => (
       <li>
+        {/* fallbackFormat is explicit because without it <Picture> reads src.format to pick one,
+            which marks the original as used and makes the build ship the full-size JPEG. */}
         <Picture
           src={p.src}
           alt={p.alt}
           formats={['avif', 'webp']}
+          fallbackFormat="jpg"
           width={720}
           widths={[360, 540, 720, 1080]}
           sizes="(min-width: 800px) 352px, calc(50vw - 26px)"
+          loading={eager ? 'eager' : 'lazy'}
         />
       </li>
     ))
