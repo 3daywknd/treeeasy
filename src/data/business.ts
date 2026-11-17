@@ -16,7 +16,7 @@ export const ORG_ID = `${SITE_URL}/#organization`;
 
 export const business = {
   name: 'Tree Easy',
-  legalName: 'Tree Easy',
+  legalName: 'Tree Easy LLC',
   tagline: 'Ogden · Weber County',
   url: SITE_URL,
   logo: `${SITE_URL}/tree-easy-logo.png`,

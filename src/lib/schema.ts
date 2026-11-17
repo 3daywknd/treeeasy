@@ -50,6 +50,7 @@ export function getOrganizationSchema(): JsonLd {
     '@type': 'TreeService',
     '@id': ORG_ID,
     name: business.name,
+    legalName: business.legalName,
     url: business.url,
     image: business.image,
     logo: business.logo,
