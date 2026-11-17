@@ -21,7 +21,7 @@ const addressLine = business.address.streetAddress
         <p class="footer-nap">{addressLine} · Serving all of Weber County</p>
         <a class="footer-phone" href={business.phoneHref}>{business.phoneDisplay}</a>
         <p class="footer-hours">{business.hoursDisplay}</p>
-        {business.licenseNumber && <p class="footer-license">Licensed &amp; insured · Lic. #{business.licenseNumber}</p>}
+        {business.licenseNumber && <p class="footer-license">Licensed &amp; insured · Utah license #{business.licenseNumber}</p>}
       </div>
 
       {
@@ -57,6 +57,12 @@ const addressLine = business.address.streetAddress
               >
               <span>{business.social.instagramHandle}</span>
             </a>
+          </li>
+          <li>
+            <a href={business.google.mapsUrl} target="_blank" rel="noopener">Find us on Google</a>
+          </li>
+          <li>
+            <a href={business.google.reviewUrl} target="_blank" rel="noopener">Leave a Google review</a>
           </li>
         </ul>
       </div>

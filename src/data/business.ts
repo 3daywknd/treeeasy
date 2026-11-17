@@ -45,16 +45,21 @@ export const business = {
 
   foundingYear: '2026' as string,
 
-  /** Operating hours -> openingHoursSpecification. Open 7 days, 8am–5pm. */
+  /** Operating hours -> openingHoursSpecification. Matches the Google Business Profile. */
   hours: [
     {
-      days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-      opens: '08:00',
-      closes: '17:00',
+      days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      opens: '07:00',
+      closes: '21:00',
+    },
+    {
+      days: ['Sunday'],
+      opens: '07:30',
+      closes: '21:00',
     },
   ] as Array<{ days: string[]; opens: string; closes: string }>,
   /** Human-readable hours for on-page display. */
-  hoursDisplay: 'Open 7 days a week, 8am–5pm',
+  hoursDisplay: 'Mon–Sat 7am–9pm, Sun 7:30am–9pm',
 
   licenseNumber: '14688870-0160' as string,
 
@@ -83,9 +88,21 @@ export const business = {
     },
   ] as Array<{ author: string; body: string }>,
 
+  /** First names shown on the homepage and emitted as schema `employee` Persons. Names only. */
+  team: ['Matt', 'Caden'],
+
   social: {
     instagram: 'https://www.instagram.com/treeeasyogden/',
     instagramHandle: '@treeeasyogden',
+  },
+
+  /**
+   * Google Business Profile. CID 15871615908907615869 / place ID
+   * ChIJWes3GuzlbYoRfYbg5ZNOQ9w (feature id 0x8a6de5ec1a37eb59:0xdc434e93e5e0867d).
+   */
+  google: {
+    mapsUrl: 'https://maps.google.com/?cid=15871615908907615869',
+    reviewUrl: 'https://search.google.com/local/writereview?placeid=ChIJWes3GuzlbYoRfYbg5ZNOQ9w',
   },
 
   /** Weber County cities served (visible UI list + schema areaServed). */
@@ -109,7 +126,7 @@ export const business = {
 } as const;
 
 /** All `sameAs` profile URLs for schema. */
-export const sameAs = [business.social.instagram];
+export const sameAs = [business.social.instagram, business.google.mapsUrl];
 
 /**
  * Canonical service definitions — the single source for nav, cross-links,

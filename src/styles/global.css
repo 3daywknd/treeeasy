@@ -297,6 +297,19 @@ p { margin: 0 0 1em; }
 }
 .why-list span { color: var(--cream-100); }
 
+/* ---------- who we are ---------- */
+.who {
+  padding: 56px 0;
+  background: var(--cream-100);
+  border-bottom: 1px solid var(--rule);
+}
+.who-lede {
+  color: var(--bark-700);
+  font-size: 1.15rem;
+  max-width: 60ch;
+  margin-bottom: 0;
+}
+
 /* ---------- service area ---------- */
 .area {
   padding: 64px 0;
