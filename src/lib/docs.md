@@ -24,8 +24,8 @@ Path: @/src/lib
 ### Things to Know
 
 - The business node carries `hasMap` (Google Maps listing URL) and `employee` (name-only `Person` nodes from `business.team`).
-- Optional schema fields (`openingHoursSpecification`, `address` street/postal, `foundingDate`, `aggregateRating`, `review`) are attached **only when a real value exists** in `business.ts`. Empty TODO values produce no output.
-- `aggregateRating` / `review` are computed from `business.reviews`; while that array is empty they emit nothing (avoids fabricated ratings).
+- Optional schema fields (`openingHoursSpecification`, `address` street/postal, `foundingDate`) are attached **only when a real value exists** in `business.ts`. Empty TODO values produce no output.
+- No `review` / `aggregateRating` schema is emitted. `business.reviews` feeds only the visible testimonials; self-serving review markup is not eligible for rich results.
 - FAQ and Breadcrumb schema correctness depends on the page passing the identical array/trail used to render the visible component; `scripts/verify-seo.mjs` checks the provider `@id` linkage and FAQ presence post-build.
 
 Created and maintained by nojo.

@@ -25,8 +25,9 @@ Path: @/src/data
 
 ### Things to Know
 
-- Fields marked `TODO(owner)` — `streetAddress`, `postalCode`, `foundingYear`, `hours`, `reviews` — are **intentionally empty placeholders**. Schema builders in `@/src/lib/schema.ts` omit any field whose value is empty, so nothing fabricated ships.
-- `reviews` is deliberately empty: fabricated review / aggregateRating markup violates Google policy, so it stays empty until real, consented reviews exist.
+- `streetAddress` and `postalCode` are the only remaining `TODO(owner)` fields and are **intentionally empty**. Schema builders in `@/src/lib/schema.ts` omit any field whose value is empty, so nothing fabricated ships.
+- `foundingYear` and `hours` hold real values (emitted as `foundingDate` and `openingHoursSpecification`); `hoursDisplay` is the matching on-page text.
+- `reviews` holds real, consented testimonials rendered by `@/src/components/Testimonials.astro`. They are deliberately not emitted as `review` / `aggregateRating` schema: Google does not support self-serving review rich results.
 - `geo` is the Ogden centroid, not an exact business location, since no street address is published yet.
 - Job photos are taken at customers' homes. Committed sources must have all metadata stripped (EXIF/GPS, XMP, ICC, IPTC) and be downscaled to ~2400px on the long edge. Alt text describes only what is visible: no locations, species, customer names, or dates.
 

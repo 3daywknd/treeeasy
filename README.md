@@ -40,20 +40,21 @@ Change it in that one file only.
 
 ### Fill in the owner-provided facts
 
-Several fields ship as empty `TODO(owner)` placeholders. When you have the real
-values, set them in `src/data/business.ts` and the schema picks them up
+Only `address.streetAddress` and `address.postalCode` are still empty
+`TODO(owner)` placeholders. When the owner publishes an address, set them in
+`src/data/business.ts` and the schema adds the full postal address
 automatically (empty values are intentionally left out of structured data so
-nothing fabricated is published):
+nothing fabricated is published).
 
-- `foundingYear` → adds `foundingDate` and lets you say "Serving Ogden since YYYY".
-- `hours` → adds `openingHoursSpecification`. Example:
-  ```ts
-  hours: [{ days: ['Monday','Tuesday','Wednesday','Thursday','Friday'], opens: '07:00', closes: '18:00' }],
-  ```
-- `address.streetAddress` + `address.postalCode` → full postal address in schema.
-- `reviews` → adds `review` + `aggregateRating`. **Only add real reviews**
-  (name, rating, date, with the customer's consent). Fake review markup violates
-  Google policy and can get the site penalized.
+The other owner-provided facts are already filled in:
+
+- `foundingYear` → emitted as `foundingDate`.
+- `hours` → emitted as `openingHoursSpecification`; `hoursDisplay` is the
+  matching on-page text. Keep both in line with the Google Business Profile.
+- `reviews` → real, consented customer testimonials shown on the homepage only.
+  They are deliberately **not** emitted as `review` / `aggregateRating` schema:
+  Google does not support self-serving review rich results, and that markup can
+  get the site penalized. Only add real reviews.
 
 ### Add a blog post
 
