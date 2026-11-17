@@ -61,7 +61,6 @@ export const business = {
   /** Human-readable hours for on-page display. */
   hoursDisplay: 'Mon–Sat 7am–9pm, Sun 7:30am–9pm',
 
-  licenseNumber: '14688870-0160' as string,
 
   /**
    * Real customer testimonials (owner-provided, with consent). Displayed on-page

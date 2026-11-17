@@ -20,7 +20,7 @@ Requires Node 22.12+ (Wrangler's minimum); Workers Builds and CI use Node 24.
 
 | Path | What |
 | --- | --- |
-| `src/data/business.ts` | **Single source of truth** for phone, address, hours, license, service area, team names, Google Business Profile links, and the service list. Edit business facts here. |
+| `src/data/business.ts` | **Single source of truth** for phone, address, hours, service area, team names, Google Business Profile links, and the service list. Edit business facts here. |
 | `src/lib/schema.ts` | JSON-LD builders (structured data). |
 | `src/lib/nav.ts` | Header/footer links. |
 | `src/layouts/` | `BaseLayout` (the `<head>` + page chrome), `ServiceLayout`. |
@@ -51,7 +51,6 @@ nothing fabricated is published):
   hours: [{ days: ['Monday','Tuesday','Wednesday','Thursday','Friday'], opens: '07:00', closes: '18:00' }],
   ```
 - `address.streetAddress` + `address.postalCode` → full postal address in schema.
-- `licenseNumber` → adds `hasCredential`.
 - `reviews` → adds `review` + `aggregateRating`. **Only add real reviews**
   (name, rating, date, with the customer's consent). Fake review markup violates
   Google policy and can get the site penalized.

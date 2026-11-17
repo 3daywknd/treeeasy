@@ -5,7 +5,7 @@
  * homepage) addressed by ORG_ID. Every other page references it by `@id` rather
  * than restating the business — a proper schema.org entity graph.
  *
- * Optional fields (hours, address, reviews, license, foundingDate) are included
+ * Optional fields (hours, address, reviews, foundingDate) are included
  * ONLY when a real value exists in business.ts. No placeholders leak into output.
  */
 
@@ -77,13 +77,6 @@ export function getOrganizationSchema(): JsonLd {
   const hours = openingHours();
   if (hours) node.openingHoursSpecification = hours;
   if (business.foundingYear) node.foundingDate = business.foundingYear;
-  if (business.licenseNumber) {
-    node.hasCredential = {
-      '@type': 'EducationalOccupationalCredential',
-      credentialCategory: 'license',
-      identifier: business.licenseNumber,
-    };
-  }
 
   return node;
 }

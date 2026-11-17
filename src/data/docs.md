@@ -24,7 +24,7 @@ Path: @/src/data
 
 ### Things to Know
 
-- Fields marked `TODO(owner)` — `streetAddress`, `postalCode`, `foundingYear`, `hours`, `licenseNumber`, `reviews` — are **intentionally empty placeholders**. Schema builders in `@/src/lib/schema.ts` omit any field whose value is empty, so nothing fabricated ships.
+- Fields marked `TODO(owner)` — `streetAddress`, `postalCode`, `foundingYear`, `hours`, `reviews` — are **intentionally empty placeholders**. Schema builders in `@/src/lib/schema.ts` omit any field whose value is empty, so nothing fabricated ships.
 - `reviews` is deliberately empty: fabricated review / aggregateRating markup violates Google policy, so it stays empty until real, consented reviews exist.
 - `geo` is the Ogden centroid, not an exact business location, since no street address is published yet.
 
