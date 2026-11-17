@@ -140,7 +140,7 @@ npx wrangler deploy   # deploys to whichever account Wrangler is logged into
 
 ## SEO notes
 
-- Business identity is defined once (homepage `Organization`/`TreeService` node,
+- Business identity is defined once (homepage `HomeAndConstructionBusiness` node,
   id `…/#organization`); every other page references it by `@id`.
 - A page's visible FAQ and its `FAQPage` schema are built from the **same**
   `faqs` array so they never drift — required for FAQ rich results.

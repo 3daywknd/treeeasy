@@ -41,13 +41,13 @@ function openingHours(): JsonLd[] | undefined {
 }
 
 /**
- * The full business node (TreeService is a LocalBusiness subtype).
+ * The full business node (HomeAndConstructionBusiness is a LocalBusiness subtype; schema.org has no TreeService type).
  * Emitted once, on the homepage. This is the anchor for ORG_ID.
  */
 export function getOrganizationSchema(): JsonLd {
   const node: JsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'TreeService',
+    '@type': 'HomeAndConstructionBusiness',
     '@id': ORG_ID,
     name: business.name,
     legalName: business.legalName,
