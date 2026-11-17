@@ -13,7 +13,7 @@ const isActive = (href: string) =>
 <header class="site-header">
   <div class="wrap header-inner">
     <a class="brand" href="/" aria-label={`${business.name} home`}>
-      <Image src={logo} alt="Tree Easy logo" width={56} height={56} densities={[1, 2]} format="webp" />
+      <Image src={logo} alt="Tree Easy logo" height={56} densities={[1, 2]} format="webp" loading="eager" />
       <span class="brand-text">
         <span class="brand-name">{business.name}</span>
         <span class="brand-tag">{business.tagline}</span>
