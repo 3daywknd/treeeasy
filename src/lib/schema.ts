@@ -5,8 +5,9 @@
  * homepage) addressed by ORG_ID. Every other page references it by `@id` rather
  * than restating the business — a proper schema.org entity graph.
  *
- * Optional fields (hours, address, reviews, foundingDate) are included
- * ONLY when a real value exists in business.ts. No placeholders leak into output.
+ * Optional fields (hours, address, foundingDate) are included ONLY when a real
+ * value exists in business.ts. No placeholders leak into output. Reviews are
+ * never emitted as schema (self-serving review markup is not eligible).
  */
 
 import { business, sameAs, services, SITE_URL, ORG_ID, servicePath } from '../data/business';

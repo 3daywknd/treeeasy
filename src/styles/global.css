@@ -87,15 +87,17 @@ p { margin: 0 0 1em; }
   padding: 12px 20px;
   gap: 16px;
 }
+.header-inner > * { flex-shrink: 0; }
 .brand {
   display: inline-flex;
   align-items: center;
   gap: 12px;
+  margin-right: auto;
   text-decoration: none;
   color: inherit;
 }
-.brand img { width: 56px; height: 56px; }
-.brand-text { display: flex; flex-direction: column; line-height: 1.1; }
+.brand img { height: 56px; width: auto; }
+.brand-text { display: flex; flex-direction: column; line-height: 1.1; white-space: nowrap; }
 .brand-name {
   font-family: "Rockwell", "Roboto Slab", Georgia, serif;
   font-weight: 900;
@@ -111,9 +113,19 @@ p { margin: 0 0 1em; }
 }
 
 .header-call .icon { width: 18px; height: 18px; }
-@media (max-width: 520px) {
+/* Header breakpoints pair a px width with an em width: the brand and nav text are in rem, so a larger
+   default font size needs the narrower layout sooner. The px half covers default sizes below 16px. */
+@media (max-width: 639px), (max-width: 39.99em) {
   .header-call span { display: none; }
   .header-call { padding: 10px 12px; }
+  .nav-toggle > summary span { display: none; }
+  .brand { gap: 10px; }
+  .brand img { height: 44px; }
+  .brand-tag { font-size: .75rem; }
+}
+@media (max-width: 389px), (max-width: 24.3em) {
+  .brand { gap: 8px; }
+  .brand-tag { display: none; }
 }
 
 /* ---------- buttons ---------- */
@@ -310,6 +322,31 @@ p { margin: 0 0 1em; }
   margin-bottom: 0;
 }
 
+/* ---------- job photos ---------- */
+.photo-grid,
+.prose .photo-grid {
+  list-style: none;
+  padding: 0;
+  margin: 1.6em 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.prose .photo-grid li { margin: 0; }
+.photo-grid img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 8px;
+  background: var(--cream-100);
+}
+.recent-work { padding: 64px 0; background: var(--cream-50); border-bottom: 1px solid var(--rule); }
+.recent-work .photo-grid { margin: 0; }
+@media (min-width: 800px) {
+  .recent-work .photo-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+}
+
 /* ---------- service area ---------- */
 .area {
   padding: 64px 0;
@@ -402,7 +439,8 @@ p { margin: 0 0 1em; }
   margin: 0;
   padding: 0;
 }
-.primary-nav a {
+.primary-nav a,
+.nav-dropdown-toggle {
   display: inline-block;
   padding: 8px 12px;
   border-radius: 6px;
@@ -413,10 +451,54 @@ p { margin: 0 0 1em; }
   white-space: nowrap;
 }
 .primary-nav a:hover { background: var(--cream-100); color: var(--forest-900); }
-.primary-nav a[aria-current="page"] {
+.primary-nav a[aria-current="page"],
+.nav-dropdown-toggle.is-current {
   color: var(--forest-900);
   box-shadow: inset 0 -2px 0 var(--sun-500);
 }
+
+/* services dropdown (desktop) */
+.nav-dropdown { position: relative; }
+.nav-dropdown-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 0;
+  background: none;
+  font-family: inherit;
+  line-height: inherit;
+  cursor: pointer;
+}
+.nav-dropdown-toggle svg { width: 14px; height: 14px; transition: transform .15s ease; }
+.nav-dropdown-toggle:hover,
+.nav-dropdown-toggle[aria-expanded="true"] { background: var(--cream-100); color: var(--forest-900); }
+.nav-dropdown-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
+.primary-nav .nav-dropdown-menu {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: calc(100% + 6px);
+  min-width: 220px;
+  padding: 8px;
+  background: #fff;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.12);
+  z-index: 60;
+}
+/* Bridges the 6px gap so the pointer can travel from the button to the menu without closing it. */
+.nav-dropdown-menu::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -7px;
+  height: 7px;
+}
+.nav-dropdown-toggle[aria-expanded="true"] + .nav-dropdown-menu,
+.nav-dropdown:not([data-ready]):hover > .nav-dropdown-menu,
+.nav-dropdown:not([data-ready]):focus-within > .nav-dropdown-menu { display: block; }
+.primary-nav .nav-dropdown-menu a { display: block; padding: 10px 12px; }
 
 /* mobile menu (no-JS <details>) */
 .nav-toggle { display: none; position: relative; }
@@ -460,10 +542,15 @@ p { margin: 0 0 1em; }
 }
 .nav-toggle-menu a:hover { background: var(--cream-100); }
 
-@media (max-width: 900px) {
+/* The full nav (brand + Services, Emergency, Blog + call button) needs ~780px at a 16px default font;
+   below this, the menu toggle takes over. See the note on the header breakpoints above. */
+@media (max-width: 799px), (max-width: 49.99em) {
   .primary-nav { display: none; }
   .nav-toggle { display: block; }
   .header-inner { gap: 10px; }
+}
+@media (max-width: 389px), (max-width: 24.3em) {
+  .header-inner { gap: 6px; }
 }
 
 /* ---------- service card as link ---------- */

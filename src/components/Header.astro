@@ -1,19 +1,20 @@
 ---
 import { Image } from 'astro:assets';
 import { business } from '../data/business';
-import { primaryNav } from '../lib/nav';
+import { primaryNav, desktopNav } from '../lib/nav';
 import CallButton from './CallButton.astro';
 import logo from '../assets/tree-easy-logo.png';
 
 const currentPath = Astro.url.pathname;
 const isActive = (href: string) =>
   href !== '/' && currentPath.startsWith(href.replace(/#.*$/, ''));
+const servicesActive = desktopNav.services.links.some((item) => isActive(item.href));
 ---
 
 <header class="site-header">
   <div class="wrap header-inner">
     <a class="brand" href="/" aria-label={`${business.name} home`}>
-      <Image src={logo} alt="Tree Easy logo" width={56} height={56} densities={[1, 2]} format="webp" />
+      <Image src={logo} alt="Tree Easy logo" height={56} densities={[1, 2]} format="webp" loading="eager" />
       <span class="brand-text">
         <span class="brand-name">{business.name}</span>
         <span class="brand-tag">{business.tagline}</span>
@@ -22,8 +23,38 @@ const isActive = (href: string) =>
 
     <nav class="primary-nav" aria-label="Primary">
       <ul>
+        <li class="nav-dropdown" data-nav-dropdown>
+          <button
+            type="button"
+            class:list={['nav-dropdown-toggle', { 'is-current': servicesActive }]}
+            aria-expanded="false"
+            aria-controls="nav-services-menu"
+          >
+            {desktopNav.services.label}
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"
+              ><path
+                d="M6 9l6 6 6-6"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"></path></svg
+            >
+          </button>
+          <ul id="nav-services-menu" class="nav-dropdown-menu">
+            {
+              desktopNav.services.links.map((item) => (
+                <li>
+                  <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </li>
         {
-          primaryNav.map((item) => (
+          desktopNav.links.map((item) => (
             <li>
               <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
                 {item.label}
@@ -62,3 +93,64 @@ const isActive = (href: string) =>
     </details>
   </div>
 </header>
+
+<script>
+  // Services dropdown: opens on mouse hover, click/tap, or Enter/Space on the button.
+  // A click after a hover pins it open; Escape (wherever focus is), a click outside, focus
+  // leaving, or following one of its links closes it. Until this runs, CSS opens the menu
+  // on :hover / :focus-within instead.
+  for (const item of document.querySelectorAll<HTMLElement>('[data-nav-dropdown]')) {
+    const button = item.querySelector('button');
+    if (!button) continue;
+    let pinned = false;
+
+    const isOpen = () => button.getAttribute('aria-expanded') === 'true';
+    const setOpen = (open: boolean) => {
+      button.setAttribute('aria-expanded', String(open));
+      if (!open) pinned = false;
+    };
+
+    button.addEventListener('click', () => {
+      if (isOpen() && !pinned) {
+        pinned = true;
+      } else if (isOpen()) {
+        setOpen(false);
+      } else {
+        setOpen(true);
+        pinned = true;
+      }
+    });
+    item.addEventListener('pointerenter', (e) => {
+      if (e.pointerType === 'mouse') setOpen(true);
+    });
+    item.addEventListener('pointerleave', (e) => {
+      if (e.pointerType === 'mouse' && !pinned) setOpen(false);
+    });
+    item.addEventListener('focusout', (e) => {
+      const next = e.relatedTarget;
+      if (next instanceof Node && !item.contains(next)) setOpen(false);
+    });
+    item.addEventListener('click', (e) => {
+      if (e.target instanceof Element && e.target.closest('a')) setOpen(false);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape' || !isOpen()) return;
+      const focusInside = item.contains(document.activeElement);
+      setOpen(false);
+      if (focusInside) button.focus();
+    });
+    document.addEventListener('pointerdown', (e) => {
+      if (e.target instanceof Node && !item.contains(e.target)) setOpen(false);
+    });
+    // A page restored from the back/forward cache keeps its DOM, open menu included.
+    window.addEventListener('pageshow', (e) => {
+      if (e.persisted) setOpen(false);
+    });
+
+    item.dataset.ready = '';
+  }
+
+  window.addEventListener('pageshow', (e) => {
+    if (e.persisted) document.querySelector('.nav-toggle')?.removeAttribute('open');
+  });
+</script>

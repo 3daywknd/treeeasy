@@ -1,5 +1,7 @@
 ---
 import ServiceLayout from '../../layouts/ServiceLayout.astro';
+import PhotoGrid from '../../components/PhotoGrid.astro';
+import { photos } from '../../data/photos';
 
 const faqs = [
   {
@@ -34,6 +36,8 @@ const faqs = [
     liability. Tree Easy removes trees of every size across Ogden and Weber County, from a single
     backyard maple to a row of failing cottonwoods, with the rigging and insurance to do it safely.
   </p>
+
+  <PhotoGrid photos={[photos.craneTrunkSection, photos.craneTreeTop]} eager />
 
   <h2>When a tree should come down</h2>
   <p>Not every problem tree needs removing — but some clearly do. Call us if you’re seeing:</p>
@@ -80,6 +84,8 @@ const faqs = [
     barely know we were there, except the tree is gone.
   </p>
 
+  <PhotoGrid photos={[photos.climberOnLimbedTrunk, photos.fellingNotch]} />
+
   <div class="callout">
     <p>
       <strong>Emergency or storm-damaged tree?</strong> A hazardous tree over your home or
@@ -91,8 +97,8 @@ const faqs = [
   <h2>Insured and local</h2>
   <p>
     Tree removal is the highest-risk work in this trade, and it’s where cutting corners costs the
-    most. Tree Easy carries full liability coverage and workers’ comp, so a bad day on your
-    property never becomes your problem. We’re Ogden-based, we answer our own phone, and we stand
+    most. Tree Easy carries full liability coverage, so if our work ever damages your property,
+    the cost never becomes your problem. We’re Ogden-based, we answer our own phone, and we stand
     behind every takedown. When the wood is loaded and the yard is clean, that’s the job done right.
   </p>
 </ServiceLayout>
