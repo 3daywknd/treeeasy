@@ -5,7 +5,9 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { getBreadcrumbSchema } from '../../lib/schema';
 
 const posts = (await getCollection('blog')).sort(
-  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
+  (a, b) =>
+    b.data.pubDate.getTime() - a.data.pubDate.getTime() ||
+    a.data.title.localeCompare(b.data.title)
 );
 
 const title = 'Tree Care Blog | Tree Easy — Ogden & Weber County';

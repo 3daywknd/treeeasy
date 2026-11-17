@@ -110,6 +110,9 @@ Notes:
   build command. Because `npm run verify` is part of it, an SEO regression fails
   the build and nothing is deployed.
 - `npx wrangler deploy` uses the Wrangler version pinned in `devDependencies`.
+- `workers_dev` and `preview_urls` are `false`: the Worker is reachable only
+  through the custom domain (or route) attached to it in the dashboard. Each
+  deploy turns off the `*.workers.dev` URL.
 
 ### URL handling
 

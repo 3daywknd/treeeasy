@@ -17,7 +17,7 @@ Path: @/src/components
 
 - **CallButton** reads phone number/href from `business.ts` — the number changes in one place. `variant`/`size`/`label`/`icon` props reproduce the original hand-coded buttons.
 - **Header** renders `primaryNav`, marks the active link via `aria-current` (path-prefix match), shows the optimized logo, and provides a no-JS mobile menu using a `<details>` toggle.
-- **Footer** (every page) renders `footerColumns` plus a brand/NAP column (name, service-area line, phone, `hoursDisplay`, "Utah license #") and a Connect column (Instagram, "Find us on Google", "Leave a Google review"); the address line collapses to locality/region when no `streetAddress` is set.
+- **Footer** (every page) renders `footerColumns` plus a brand/NAP column (name, service-area line, phone, `hoursDisplay`, "Lic. #") and a Connect column (Instagram, "Find us on Google", "Leave a Google review"); the address line collapses to locality/region when no `streetAddress` is set.
 - **Faq** renders the visible FAQ from a `{q, a}[]` array using `<details>` accordions.
 - **Breadcrumbs** renders a visible trail; the last crumb is a non-link `aria-current="page"`.
 - **ServiceCard** / **RelatedServices** render service links from the `services` list; `RelatedServices` filters out the current page via an `exclude` slug.
